@@ -1,0 +1,24 @@
+Bài 2 : Phân tích hiệu năng hệ thống và quản lý đường dẫn tệp
+Báo cáo phân tích:
+-Nguyên nhân đường dẫn tuyệt đối gây lỗi khi đổi máy như:
+Đường dẫn trong hardcode ổ đĩa như C:/User/... bởi vì máy của mỗi người đều có tên User khác nhau , không có ai giống nhau
+Do dùng dấu chéo ngược \ bởi vì khi viết đường dẫn liên kết web hoặc mã nguồn dự án luôn phải sử dụng "/"
+Tên thư mục có dấu cách như thư mục "dự án"
+-Phân tích luồng IPO của ứng dụng từ lúc nạp từ Storage vào RAM máy của bạn thân:
+Input (đầu vào):
+Người gửi copy toàn bộ thư mục dự án Ứng dụng Shopee-Lite cho bạn thân để kiểm tra
+Đường dẫn (path) của người gửi sẽ chạy đến Storage máy của bạn thân
+Process (Quá trình xử lý):
+Máy của bạn thân xác định đường dẫn nhưng gặp lỗi của người gửi ở trên thì đường dẫn tuyệt đối của bạn thân không xác định được vị trí và ứng dụng Python sẽ không tìm thấy file và bị lỗi
+Máy bạn thân mở dự án thì RAM sẽ xử lý dự án Ứng dụng Shopee-Lite Python nhưng người gửi không tối ưu trong lập trình code như tự động đóng ứng dụng nếu thiếu file (Assets,src) và khi gặp lỗi như đường dẫn FileNotFoundError thì Ứng dụng Shopee-Lite Python không tìm thấy (Assets,src) nên do không có giải pháp tối ưu thì code nó sẽ bị loạn do thiếu file khiến RAM xử lý tác vụ liên tục và bị nóng quá tải tới 98%
+Output (Đầu ra):
+RAM xử lý quá tải Ứng dụng Shopee-Lite Python khiến máy bị treo, RAM lên đến 98%
+
+Viết lại cấu trúc đường dẫn tương đối:
+dấu (.) ví dụ: [ ./assets/logo.png ]
+dấu (..) ví dụ [ ../Src/code.py ]
+
+3 bước xử lý để giảm lag cho máy bạn thân dựa trên Task Manager:
+Cách 1: đóng ứng dụng gây lỗi như python bằng End task
+Cách 2: đóng những ứng dụng không cần thiết 
+Cách 3: đóng ứng dụng gây lỗi như Shopee-Lite bằng End task
